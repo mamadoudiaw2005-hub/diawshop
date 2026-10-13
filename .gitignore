@@ -1,0 +1,37 @@
+# ─────────────────────────────────────────────────────────────────
+# DIAW SHOOP — .gitignore
+# Fichiers à ne JAMAIS versionner dans Git/GitHub
+# ─────────────────────────────────────────────────────────────────
+
+# Variables d'environnement et secrets
+.env
+.env.*
+!.env.example
+
+# Logs et données persistantes du serveur
+server_orders.json
+*.log
+logs/
+
+# Environnement Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+venv/
+env/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo

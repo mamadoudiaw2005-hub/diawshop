@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIAW SHOOP | Robes, Abayas & Produits de Beauté Féminins Sénégal</title>
+    <!-- Google Fonts: Outfit for headers, Inter for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=2">
+    <!-- Google Identity Services SDK for Real Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+
+
+    <!-- Navigation Header -->
+    <header class="main-header" id="main-header">
+        <div class="header-container">
+            <!-- Brand & Mobile Menu Column -->
+            <div class="brand-nav-group">
+                <!-- Brand Logo -->
+                <a href="#client-shop-view" class="brand-logo" id="brand-logo">
+                    <span id="logo-header-text"><span style="color: var(--accent);">DIAW</span> SHOOP</span>
+                </a>
+
+                <!-- Mobile Menu Hamburger Button (placé en dessous de DIAW SHOOP sur smartphone) -->
+                <button class="nav-menu-btn-brand" id="btn-nav-portal-trigger" type="button" aria-label="Menu de navigation" title="Menu">
+                    <i class="fa-solid fa-bars"></i>
+                    <span class="menu-text-label">MENU</span>
+                </button>
+            </div>
+
+            <nav class="nav-menu" id="nav-menu">
+                <ul>
+                    <li><a href="#client-shop-view" class="active" id="nav-home">Accueil</a></li>
+                    <li><a href="#shop-section" id="nav-shop">Boutique</a></li>
+                    <li><a href="#contact-section" id="nav-contact">Contact</a></li>
+                    <li class="admin-only-link" style="display: none;"><a href="#admin-section" id="nav-admin"><i class="fa-solid fa-lock text-accent"></i> Admin Dashboard</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <!-- Shopping Cart Icon -->
+                <button class="cart-trigger-btn" id="cart-trigger-btn">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+
+                <!-- Auth/User Menu Trigger -->
+                <div class="user-menu-wrapper" id="user-menu-wrapper">
+                    <button class="login-trigger-btn" id="login-trigger-btn">
+                        <i class="fa-regular fa-user"></i> <span>Se connecter</span>
+                    </button>
+                    <!-- Logged in state dropdown placeholder -->
+                    <div class="user-dropdown-container" id="user-dropdown-container" style="display: none;">
+                        <button class="user-profile-btn" id="user-profile-btn">
+                            <img src="" alt="Avatar" id="user-avatar" class="user-avatar">
+                            <span id="user-name-display">Utilisateur</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown-menu" id="user-dropdown-menu">
+                            <div class="user-dropdown-header">
+                                <p class="user-email" id="user-email-display">email@example.com</p>
+                                <span class="badge" id="user-role-badge">Client</span>
+                            </div>
+                            <ul class="user-dropdown-links">
+                                <li class="admin-only-link" style="display: none;"><a href="#admin-section" id="dropdown-admin-btn"><i class="fa-solid fa-gauge"></i> Espace Admin</a></li>
+                                <li><a href="#" id="btn-my-orders"><i class="fa-solid fa-clock-rotate-left"></i> Mes Commandes</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" id="btn-logout" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Se déconnecter</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Promo Announcement Banner -->
+    <div id="promo-announcement-bar" style="display: none; background: linear-gradient(90deg, #1a1a1a 0%, #2c2517 50%, #1a1a1a 100%); color: #fff; padding: 10px 16px; text-align: center; font-size: 0.88rem; font-weight: 600; border-bottom: 2px solid var(--accent); position: relative; z-index: 999;">
+        <span id="promo-announcement-text"><i class="fa-solid fa-bolt text-accent"></i> VENTES PRIVÉES DIAW SHOOP : Profitez de nos offres d'exception !</span>
+    </div>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Client Shop View wrapper -->
+        <div id="client-shop-view">
+            <!-- Hero Section -->
+            <section class="hero-section" id="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-subtitle">ÉLÉGANCE, MODE FÉMININE & BIEN-ÊTRE</span>
+                <h1 class="hero-title">RÉVÉLEZ VOTRE ÉCLAT & VOTRE ÉLÉGANCE</h1>
+                <p class="hero-description">Découvrez nos collections de prêt-à-porter de luxe pour femmes voilées et non voilées, ainsi que nos soins cosmétiques naturels bio d'excellence.</p>
+                <div class="hero-buttons">
+                    <a href="#shop-section" class="btn btn-primary btn-large">Explorer la Boutique</a>
+                    <a href="#shop-section" class="btn btn-secondary btn-large" id="hero-btn-secondary">Nouvelle Collection Robes</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-truck"></i></div>
+                        <h3>Livraison 24h/48h</h3>
+                        <p>Partout à Dakar, dans sa banlieue et dans toutes les régions du Sénégal.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h3>Paiement Sécurisé</h3>
+                        <p>Réglez par Wave, Orange Money, Free Money ou espèces à la livraison.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-sparkles"></i></div>
+                        <h3>Produits d'Excellence</h3>
+                        <p>Robes en tissus nobles, abayas de soie et cosmétiques bio sélectionnés.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fa-solid fa-comments"></i></div>
+                        <h3>Service Client WhatsApp</h3>
+                        <p>Support direct et conseils personnalisés par notre équipe de vente.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shop Section -->
+        <section class="shop-section" id="shop-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Notre Boutique Mode & Beauté</h2>
+                    <p class="section-subtitle">Robes de créateurs, abayas fluides et soins bien-être de haute qualité.</p>
+                </div>
+
+                <!-- Product Filters -->
+                <div class="filters-container">
+                    <div class="category-tabs" id="category-tabs">
+                        <button class="tab-btn active" data-category="all">Tout</button>
+                        <button class="tab-btn" data-category="vetements">Vêtements & Abayas</button>
+                        <button class="tab-btn" data-category="robes">Robes Wax</button>
+                        <button class="tab-btn" data-category="beaute">Soins de Beauté</button>
+                        <button class="tab-btn" data-category="parfums">Parfums & Encens</button>
+                    </div>
+                    <div class="sort-wrapper">
+                        <label for="sort-select">Trier par :</label>
+                        <select id="sort-select">
+                            <option value="default">Pertinence</option>
+                            <option value="price-asc">Prix : Croissant</option>
+                            <option value="price-desc">Prix : Décroissant</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+                <!-- Products Grid -->
+                <div class="products-grid" id="products-grid">
+                    <!-- Products will be dynamically generated by JS -->
+                    <div class="loading-spinner-wrapper">
+                        <div class="spinner"></div>
+                        <p>Chargement des collections de beauté...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div><!-- End of client-shop-view (Accueil / Boutique) -->
+
+        <!-- Dedicated Customer Assistance & Contact View (Page séparée, masquée sur l'accueil) -->
+        <section class="contact-section" id="contact-section" style="display: none;">
+            <div class="container">
+                <div style="margin-bottom: 25px; display: flex; justify-content: flex-start;">
+                    <button type="button" class="btn btn-secondary btn-sm" id="btn-back-to-shop" style="gap: 8px; border: 1px solid var(--border-color); color: var(--primary); background: #ffffff;">
+                        <i class="fa-solid fa-arrow-left"></i> Retour à la Boutique & Accueil
+                    </button>
+                </div>
+
+                <div class="section-header">
+                    <span class="contact-pill-badge"><i class="fa-solid fa-headset"></i> Support & Assistance Client</span>
+                    <h2 class="section-title">Centre d'Aide & Contact Direct</h2>
+                    <p class="section-subtitle">Une question sur un article, un problème avec votre commande ou besoin d'un conseil ? Notre Service Client et toute l'équipe <span class="contact-shop-name">DIAW SHOOP</span> sont à votre écoute avec bienveillance.</p>
+                </div>
+
+                <div class="contact-grid">
+                    <!-- Colonne Gauche : Coordonnées Directes & Accès Rapides -->
+                    <div class="contact-info-card">
+                        <h3>Nos Canaux Directs</h3>
+                        <p class="contact-info-intro">Nous vous garantissons une écoute attentive et des réponses rapides pour vous accompagner dans tous vos achats.</p>
+
+                        <div class="contact-methods-list">
+                            <div class="contact-method-item">
+                                <div class="contact-icon-box"><i class="fa-solid fa-phone"></i></div>
+                                <div>
+                                    <span class="contact-method-label">Appel Téléphonique Direct</span>
+                                    <a href="tel:+221705476061" class="contact-method-value" id="contact-phone-link">+221 70 547 60 61</a>
+                                    <small class="contact-method-hint">Joignable du lundi au samedi</small>
+                                </div>
+                            </div>
+
+                            <div class="contact-method-item">
+                                <div class="contact-icon-box whatsapp-box"><i class="fa-brands fa-whatsapp"></i></div>
+                                <div>
+                                    <span class="contact-method-label">WhatsApp Service Client</span>
+                                    <a href="https://wa.me/221705476061" target="_blank" class="contact-method-value text-whatsapp" id="contact-whatsapp-link">+221 70 547 60 61</a>
+                                    <small class="contact-method-hint">Échange direct et réponse rapide en quelques minutes</small>
+                                </div>
+                            </div>
+
+                            <div class="contact-method-item">
+                                <div class="contact-icon-box"><i class="fa-solid fa-envelope"></i></div>
+                                <div>
+                                    <span class="contact-method-label">Email Officiel du Service Client</span>
+                                    <a href="mailto:mamadoudiaw1105@gmail.com" class="contact-method-value" id="contact-email-link">mamadoudiaw1105@gmail.com</a>
+                                    <small class="contact-method-hint">Pour vos demandes écrites et pièces justificatives</small>
+                                </div>
+                            </div>
+
+                            <div class="contact-method-item">
+                                <div class="contact-icon-box"><i class="fa-solid fa-location-dot"></i></div>
+                                <div>
+                                    <span class="contact-method-label">Adresse de la Boutique / Showroom</span>
+                                    <span class="contact-method-value" id="contact-address-text">Liberté 6 Extension, Dakar, Sénégal</span>
+                                    <small class="contact-method-hint">Retrait de colis & essayages sur rendez-vous</small>
+                                </div>
+                            </div>
+
+                            <div class="contact-method-item">
+                                <div class="contact-icon-box"><i class="fa-solid fa-clock"></i></div>
+                                <div>
+                                    <span class="contact-method-label">Horaires d'Ouverture</span>
+                                    <span class="contact-method-value" id="contact-hours-text">Lun - Ven : 10h - 22h | Sam : 10h - 18h</span>
+                                    <small class="contact-method-hint">Assistance continue sur WhatsApp</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-direct-actions">
+                            <a href="https://wa.me/221705476061?text=Bonjour,%20j'ai%20besoin%20d'aide%20pour%20une%20commande" target="_blank" class="btn btn-success btn-block" id="contact-direct-wa-btn" style="gap: 8px;">
+                                <i class="fa-brands fa-whatsapp"></i> Échanger sur WhatsApp avec le Service Client
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Colonne Droite : Formulaire Spécial de Résolution de Problème -->
+                    <div class="contact-form-card">
+                        <div class="form-header-badge">
+                            <h3><i class="fa-solid fa-paper-plane text-accent"></i> Besoin d'aide ? Écrivez-nous</h3>
+                            <p>Envoyez votre message à notre équipe d'assistance pour obtenir une solution personnalisée et rapide.</p>
+                        </div>
+
+                        <form id="customer-support-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="support-client-name">Votre nom complet *</label>
+                                    <input type="text" id="support-client-name" required placeholder="Ex: Aminata Sarr">
+                                </div>
+                                <div class="form-group">
+                                    <label for="support-client-phone">Téléphone / WhatsApp *</label>
+                                    <input type="tel" id="support-client-phone" required placeholder="Ex: 77 123 45 67">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="support-client-email">Votre adresse e-mail *</label>
+                                    <input type="email" id="support-client-email" required placeholder="votre.email@gmail.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="support-order-id">Numéro de commande (si applicable)</label>
+                                    <input type="text" id="support-order-id" placeholder="Ex: CMD-84291">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="support-issue-type">Motif de la demande *</label>
+                                <select id="support-issue-type" required>
+                                    <option value="Problème ou suivi de livraison">Problème ou suivi de livraison</option>
+                                    <option value="Échange de taille ou retouche">Échange de taille ou retouche de modèle</option>
+                                    <option value="Question sur le paiement Wave/OM">Question sur le paiement (Wave, Orange Money)</option>
+                                    <option value="Conseil style ou cosmétique">Conseil style, taille ou produit cosmétique</option>
+                                    <option value="Assistance prioritaire">Assistance prioritaire / Réclamation</option>
+                                    <option value="Autre demande">Autre demande générale</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="support-message">Description détaillée de votre demande *</label>
+                                <textarea id="support-message" rows="4" required placeholder="Décrivez votre question ou votre besoin pour que notre équipe vous réponde au plus vite..."></textarea>
+                            </div>
+
+                            <div class="support-submit-buttons">
+                                <button type="submit" class="btn btn-primary btn-block" id="btn-submit-support-email" style="gap: 8px;">
+                                    <i class="fa-solid fa-envelope"></i> Envoyer au Service Client par Email
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-block" id="btn-submit-support-whatsapp" style="gap: 8px; border-color: var(--whatsapp); color: var(--whatsapp);">
+                                    <i class="fa-brands fa-whatsapp"></i> Échanger directement sur WhatsApp
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Dashboard Section (Hidden by default, secure access control) -->
+        <section class="admin-section" id="admin-section" style="display: none;">
+            <div class="container">
+                <div class="admin-card">
+                    <div class="admin-header">
+                        <div class="admin-title-wrapper">
+                            <h2><i class="fa-solid fa-lock text-accent"></i> DIAW SHOOP Admin Dashboard</h2>
+                            <p class="text-muted">Gestion exclusive du catalogue et suivi des commandes clients</p>
+                        </div>
+                        <div class="admin-header-actions" style="display: flex; gap: 10px; align-items: center;">
+                            <button class="btn btn-secondary btn-sm" id="btn-close-admin"><i class="fa-solid fa-arrow-left"></i> Retour à la Boutique</button>
+                            <button class="btn btn-sm" id="btn-admin-logout" style="background-color: #e11d48; border-color: #e11d48; color: white;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Se déconnecter</button>
+                        </div>
+                    </div>
+
+                    <!-- Admin Statistics Dashboard -->
+                    <div class="admin-stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon income"><i class="fa-solid fa-money-bill-wave"></i></div>
+                            <div class="stat-details">
+                                <span class="stat-label">Chiffre d'Affaires</span>
+                                <h3 id="admin-stat-revenue">0 FCFA</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon orders"><i class="fa-solid fa-cart-shopping"></i></div>
+                            <div class="stat-details">
+                                <span class="stat-label">Commandes Totales</span>
+                                <h3 id="admin-stat-orders">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon products"><i class="fa-solid fa-shirt"></i></div>
+                            <div class="stat-details">
+                                <span class="stat-label">Articles en Boutique</span>
+                                <h3 id="admin-stat-products">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin Tabs Navigation -->
+                    <div class="admin-tabs">
+                        <button class="admin-tab-btn active" data-target="admin-products-tab">Gestion des Produits</button>
+                        <button class="admin-tab-btn" data-target="admin-orders-tab" id="admin-orders-tab-btn">Commandes Clients <span class="badge" id="admin-pending-badge" style="display:none;">0</span></button>
+                        <button class="admin-tab-btn" data-target="admin-support-tab" id="admin-support-tab-btn"><i class="fa-solid fa-headset text-accent"></i> Messages & Réclamations <span class="badge badge-accent" id="admin-support-badge" style="display:none;">0</span></button>
+                        <button class="admin-tab-btn superadmin-only" data-target="admin-roles-tab" id="admin-roles-tab-btn" style="display:none;"><i class="fa-solid fa-users-gear text-accent"></i> Gestion des Rôles</button>
+                        <button class="admin-tab-btn superadmin-only" data-target="admin-settings-tab" id="admin-settings-tab-btn" style="display:none;"><i class="fa-solid fa-gears text-accent"></i> Configuration</button>
+                    </div>
+
+                    <!-- Tab 1: Product Management -->
+                    <div class="admin-tab-content active" id="admin-products-tab">
+                        <div class="admin-split-layout">
+                            <!-- Left: Form to Add/Edit Product -->
+                            <div class="admin-form-container">
+                                <h3 id="product-form-title">Ajouter un nouveau produit</h3>
+                                <form id="product-admin-form">
+                                    <input type="hidden" id="edit-product-id">
+                                    
+                                    <div class="form-group">
+                                        <label for="prod-name">Nom du produit *</label>
+                                        <input type="text" id="prod-name" required placeholder="Ex: Abaya Soie Premium">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="prod-price">Prix (FCFA) *</label>
+                                            <input type="number" id="prod-price" required min="500" placeholder="Ex: 24500">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="prod-category">Catégorie *</label>
+                                            <select id="prod-category" required>
+                                                <option value="vetements">Vêtements & Abayas</option>
+                                                <option value="robes">Robes Wax</option>
+                                                <option value="beaute">Soins de Beauté</option>
+                                                <option value="parfums">Parfums & Encens</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row" style="background: rgba(212, 175, 55, 0.08); padding: 12px 14px; border-radius: 6px; border: 1px dashed var(--accent); margin-bottom: 15px; align-items: center; display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                                        <div class="form-group" style="margin-bottom: 0;">
+                                            <label style="display: flex; align-items: center; gap: 8px; font-weight: 600; cursor: pointer; margin-bottom: 4px;">
+                                                <input type="checkbox" id="prod-is-promo" style="width: 18px; height: 18px; accent-color: var(--accent);">
+                                                <span><i class="fa-solid fa-tag text-accent"></i> Article en Promotion</span>
+                                            </label>
+                                            <small class="form-help">Affiche le badge "PROMO" et active le prix barré.</small>
+                                        </div>
+                                        <div class="form-group" id="prod-old-price-group" style="margin-bottom: 0;">
+                                            <label for="prod-old-price">Ancien Prix barré (FCFA)</label>
+                                            <input type="number" id="prod-old-price" min="500" placeholder="Ex: 30000" style="padding: 7px 10px; font-size: 0.85rem;">
+                                            <small class="form-help">Prix barré affiché à côté du prix réduit.</small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="prod-size-type-group">
+                                        <label for="prod-size-type">Gestion de la taille pour cet article *</label>
+                                        <select id="prod-size-type">
+                                            <option value="none">Taille Unique / Sans taille (Abayas, kimonos, voiles, cosmétiques, parfums)</option>
+                                            <option value="multiple">Tailles multiples (XS, S, M, L, XL, 2XL) pour robes ajustées & ensembles</option>
+                                        </select>
+                                        <small class="form-help">Si "Taille Unique" est sélectionné, vos clientes commandent directement sans être bloquées par un choix de taille.</small>
+                                    </div>
+                                    <div class="form-group" id="admin-size-info-notice" style="background:#f8f9fa; border:1px solid #e2e8f0; border-radius:6px; padding:10px 12px; font-size:0.8rem; color:var(--text-muted);">
+                                        <i class="fa-solid fa-circle-info text-accent"></i> <span id="admin-size-info-text">Taille Unique sélectionnée : aucun choix de taille obligatoire ne sera demandé aux clientes.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="prod-desc">Description / Bienfaits & Conseils d'utilisation</label>
+                                        <textarea id="prod-desc" rows="3" placeholder="Pour les cosmétiques : détaillez les bienfaits, la routine d'application, les ingrédients... Pour les vêtements : court descriptif de style." style="width:100%; padding:8px 12px; font-size:0.85rem; border:1px solid var(--border-color); border-radius:4px;"></textarea>
+                                        <small class="form-help">Recommandé pour les cosmétiques et soins de beauté afin de guider vos clientes.</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="stock-qty">Quantité en stock global *</label>
+                                        <input type="number" id="stock-qty" required min="0" value="20" placeholder="Ex: 20">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="prod-image">Image du produit *</label>
+                                        <div class="image-selector-wrapper" style="display: flex; flex-direction: column; gap: 10px;">
+                                            <select id="prod-image-preset">
+                                                <option value="assets/abaya_silk.webp">Abaya en Soie Premium (Prédéfini)</option>
+                                                <option value="assets/dress_wax.webp">Robe Wax Moderne Dakar (Prédéfini)</option>
+                                                <option value="assets/shea_cream.webp">Crème Karité Bio (Prédéfini)</option>
+                                                <option value="assets/serum_glow.webp">Sérum Éclat Précieux (Prédéfini)</option>
+                                                <option value="assets/perfume_oud.webp">Brume Oud & Encens (Prédéfini)</option>
+                                                <option value="assets/set_pink.webp">Ensemble Pastel Rose (Prédéfini)</option>
+                                                <option value="assets/set_black.webp">Ensemble Chic Noir (Prédéfini)</option>
+                                                <option value="assets/bra_coral.webp">Brassière Confort Corail (Prédéfini)</option>
+                                                <option value="assets/leggings_gray.webp">Legging Galbant Gris (Prédéfini)</option>
+                                                <option value="assets/bottle_luxury.webp">Flacon Parfumé Luxe (Prédéfini)</option>
+                                                <option value="custom">Choisir une photo locale / URL</option>
+                                            </select>
+                                            
+                                            <!-- Custom Image choices -->
+                                            <div id="custom-image-options" style="display: none; flex-direction: column; gap: 8px; background: #fafafa; border: 1px solid var(--border-color); padding: 12px; border-radius: var(--border-radius-sm);">
+                                                <div class="form-group" style="margin-bottom: 0;">
+                                                    <label for="prod-image-file" style="font-size: 0.75rem; color: var(--text-muted);">Sélectionner une photo depuis votre appareil :</label>
+                                                    <input type="file" id="prod-image-file" accept="image/*" style="border: 1px dashed var(--border-color); background: white; padding: 6px; width: 100%;">
+                                                </div>
+                                                <div style="text-align: center; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; margin: 4px 0;">— OU —</div>
+                                                <input type="url" id="prod-image-url" placeholder="Saisir le lien de l'image (https://...)">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary btn-block" id="btn-save-product">Créer le produit</button>
+                                        <button type="button" class="btn btn-secondary btn-block" id="btn-cancel-edit" style="display:none;">Annuler l'édition</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Right: Table List of Current Products -->
+                            <div class="admin-table-container">
+                                <h3>Catalogue Actuel</h3>
+                                <div class="table-responsive">
+                                    <table class="admin-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Image</th>
+                                                <th>Nom</th>
+                                                <th>Catégorie</th>
+                                                <th>Prix</th>
+                                                <th>Stock disponible</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="admin-products-table-body">
+                                            <!-- Dynamically generated list -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Orders Management -->
+                    <div class="admin-tab-content" id="admin-orders-tab">
+                        <div class="admin-orders-header-bar">
+                            <div>
+                                <h3 style="margin-bottom: 4px;">Gestion des Commandes Clients</h3>
+                                <p class="text-muted" style="font-size: 0.85rem;">Suivez en temps réel les achats, actualisez les statuts de préparation et contactez les clients en 1 clic.</p>
+                            </div>
+                            <div class="admin-orders-top-actions">
+                                <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh-orders" title="Synchroniser avec le serveur Supabase">
+                                    <i class="fa-solid fa-arrows-rotate"></i> Actualiser
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Mini KPIs bar -->
+                        <div class="admin-orders-kpi-bar">
+                            <div class="order-kpi-pill">
+                                <span class="kpi-label">Total Commandes</span>
+                                <strong id="kpi-orders-count">0</strong>
+                            </div>
+                            <div class="order-kpi-pill">
+                                <span class="kpi-label">À Traiter</span>
+                                <strong id="kpi-orders-pending" style="color: #f59e0b;">0</strong>
+                            </div>
+                            <div class="order-kpi-pill">
+                                <span class="kpi-label">En Livraison</span>
+                                <strong id="kpi-orders-shipping" style="color: var(--wave-blue);">0</strong>
+                            </div>
+                            <div class="order-kpi-pill">
+                                <span class="kpi-label">Livrées</span>
+                                <strong id="kpi-orders-delivered" style="color: var(--success);">0</strong>
+                            </div>
+                        </div>
+
+                        <!-- Barre de filtre et recherche -->
+                        <div class="admin-orders-controls">
+                            <div class="admin-orders-search">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="admin-orders-search-input" placeholder="Rechercher par nom, téléphone, N° #DS-...">
+                            </div>
+                            <div class="admin-orders-filters">
+                                <button type="button" class="order-filter-btn active" data-status-filter="all">Toutes (<span id="filter-count-all">0</span>)</button>
+                                <button type="button" class="order-filter-btn" data-status-filter="pending">À Traiter (<span id="filter-count-pending">0</span>)</button>
+                                <button type="button" class="order-filter-btn" data-status-filter="shipping">En Livraison (<span id="filter-count-shipping">0</span>)</button>
+                                <button type="button" class="order-filter-btn" data-status-filter="delivered">Livrées (<span id="filter-count-delivered">0</span>)</button>
+                            </div>
+                        </div>
+
+                        <div class="admin-orders-grid" id="admin-orders-grid">
+                            <!-- Les cartes de commandes seront injectées dynamiquement ici -->
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Roles Management (SuperAdmin Only) -->
+                    <div class="admin-tab-content" id="admin-roles-tab">
+                        <h3 style="margin-bottom: 20px;">Gestion des Rôles et Permissions Administrateurs</h3>
+                        
+                        <!-- Grand Admin Personal Credentials Card -->
+                        <div class="admin-grandadmin-credentials-card" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(26, 26, 26, 0.03) 100%); border: 1.5px solid var(--accent); border-radius: var(--border-radius-sm); padding: 22px 24px; margin-bottom: 25px;">
+                            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:15px;">
+                                <div style="display:flex; align-items:center; gap:12px;">
+                                    <div style="width:42px; height:42px; border-radius:50%; background:var(--accent); color:#1a1a1a; display:flex; align-items:center; justify-content:center; font-size:1.2rem; font-weight:700;">
+                                        <i class="fa-solid fa-crown"></i>
+                                    </div>
+                                    <div>
+                                        <h4 style="margin:0; font-size:1.05rem; color:var(--text-color); font-weight:700;">Mon Profil Grand Administrateur</h4>
+                                        <p style="margin:2px 0 0; font-size:0.82rem; color:var(--text-muted);">Email de connexion actif : <strong id="grand-admin-current-email-badge" style="color:var(--accent-dark); font-weight:700;">mamadoudiaw1105@gmail.com</strong></p>
+                                    </div>
+                                </div>
+                                <span class="badge badge-accent" style="font-size:0.75rem; padding:6px 12px;"><i class="fa-solid fa-shield-halved"></i> Accès Maître Permanent</span>
+                            </div>
+
+                            <form id="grand-admin-credentials-form" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) 160px; gap:14px; align-items:flex-end;">
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label for="grand-admin-email-input" style="font-size:0.8rem; font-weight:600; margin-bottom:6px; display:block;">Changer mon e-mail de connexion</label>
+                                    <input type="email" id="grand-admin-email-input" required placeholder="Ex: mamadoudiaw1105@gmail.com" style="width:100%; padding:10px 12px; font-size:0.88rem; border:1px solid var(--border-color); border-radius:6px; background:#fff;">
+                                </div>
+                                <div class="form-group" style="margin-bottom:0;">
+                                    <label for="grand-admin-pass-input" style="font-size:0.8rem; font-weight:600; margin-bottom:6px; display:block;">Nouveau mot de passe (optionnel)</label>
+                                    <input type="password" id="grand-admin-pass-input" placeholder="Laisser vide pour conserver l'actuel" style="width:100%; padding:10px 12px; font-size:0.88rem; border:1px solid var(--border-color); border-radius:6px; background:#fff;">
+                                </div>
+                                <div>
+                                    <button type="submit" id="btn-update-grand-admin" class="btn btn-primary" style="width:100%; padding:11px 14px; font-size:0.85rem; font-weight:600; white-space:nowrap;">
+                                        <i class="fa-solid fa-floppy-disk"></i> Enregistrer
+                                    </button>
+                                </div>
+                            </form>
+                            <small style="display:block; margin-top:10px; font-size:0.76rem; color:var(--text-muted);"><i class="fa-solid fa-circle-info text-accent"></i> Vos identifiants se mettent à jour instantanément pour vous permettre de vous connecter sans interruption avec votre nouvel email.</small>
+                        </div>
+                        
+                        <div class="admin-split-layout">
+                            <!-- Left: Form to Add Admin -->
+                            <div class="admin-form-container">
+                                <h3>Créer un nouvel Administrateur</h3>
+                                <form id="add-admin-form">
+                                    <div class="form-group">
+                                        <label for="new-admin-name">Nom complet *</label>
+                                        <input type="text" id="new-admin-name" required placeholder="Ex: Sokhna Diop">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="new-admin-email">Adresse e-mail *</label>
+                                        <input type="email" id="new-admin-email" required placeholder="Ex: sokhna.diop@diawshoop.sn">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="new-admin-password">Mot de passe *</label>
+                                        <input type="password" id="new-admin-password" required placeholder="••••••••">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="new-admin-role-select">Rôle & Niveau d'accès *</label>
+                                        <select id="new-admin-role-select">
+                                            <option value="admin">Admin Secondaire (Permissions modulables)</option>
+                                            <option value="superadmin">Grand Admin (Comme Mamadou Diaw)</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block">Créer le compte Admin</button>
+                                </form>
+                            </div>
+
+                            <!-- Right: Table of existing admins -->
+                            <div class="admin-table-container" style="background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 24px;">
+                                <h3 style="margin-bottom: 20px;">Comptes Administrateurs actifs</h3>
+                                <div class="table-responsive">
+                                    <table class="admin-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Nom / Email</th>
+                                                <th>Rôle</th>
+                                                <th>Permissions d'accès</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="admin-roles-table-body">
+                                            <!-- Dynamic list of admins -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: Shop Configuration (SuperAdmin Only) -->
+                    <div class="admin-tab-content" id="admin-settings-tab">
+                        <h3>Configuration Générale de la Boutique</h3>
+                        <p class="text-muted" style="margin-bottom: 20px;">Modifier les coordonnées de contact de la boutique (WhatsApp, email, adresse physique). Ces modifications se répercutent instantanément sur le site.</p>
+                        
+                        <div class="admin-form-container" style="max-width: 600px; margin: 0 auto; background-color:#fafafb; border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding:24px;">
+                            <form id="shop-settings-form">
+                                <div class="form-group">
+                                    <label for="settings-whatsapp">Numéro WhatsApp de Service (sans le + et sans espaces)*</label>
+                                    <input type="text" id="settings-whatsapp" required placeholder="Ex: 221705476061">
+                                    <small class="form-help">Format : Indicatif + numéro (ex: 221705476061) pour recevoir les commandes WhatsApp pré-remplies.</small>
+                                </div>
+                                <div class="form-row">
+                                     <div class="form-group">
+                                         <label for="settings-shop-name">Nom de la boutique (Logo) *</label>
+                                         <input type="text" id="settings-shop-name" required placeholder="Ex: DIAW SHOOP">
+                                     </div>
+                                     <div class="form-group">
+                                         <label for="settings-shop-logo-select">Logo de la boutique *</label>
+                                         <select id="settings-shop-logo-select">
+                                             <option value="preset">Logo par défaut (DIAW SHOOP)</option>
+                                             <option value="custom">Importer un fichier image personnalisé</option>
+                                         </select>
+                                     </div>
+                                 </div>
+                                 <div class="form-group" id="settings-shop-logo-file-wrapper" style="display: none;">
+                                     <label for="settings-shop-logo-file">Sélectionner le fichier Logo</label>
+                                     <input type="file" id="settings-shop-logo-file" accept="image/*">
+                                     <small class="form-help">Choisissez un fichier image carré pour un rendu optimal (ex: 200x200px).</small>
+                                 </div>
+                                <div class="form-group">
+                                    <label for="settings-email">Email officiel de contact de la boutique *</label>
+                                    <input type="email" id="settings-email" required placeholder="Ex: contact@diawshoop.sn">
+                                </div>
+                                <div class="form-group">
+                                    <label for="settings-address">Adresse physique / Localisation de la boutique *</label>
+                                    <input type="text" id="settings-address" required placeholder="Ex: Liberté 6 Extension, Dakar, Sénégal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="settings-hours">Horaires de travail / d'ouverture *</label>
+                                    <input type="text" id="settings-hours" required placeholder="Ex: Lun - Ven : 10h - 22h / Sam : 10h - 18h">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="settings-instagram">Lien de la page Instagram</label>
+                                        <input type="url" id="settings-instagram" placeholder="Ex: https://instagram.com/diaw_shoop">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="settings-facebook">Lien de la page Facebook</label>
+                                        <input type="url" id="settings-facebook" placeholder="Ex: https://facebook.com/diaw_shoop">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="settings-tiktok">Lien du compte TikTok</label>
+                                    <input type="url" id="settings-tiktok" placeholder="Ex: https://tiktok.com/@diaw_shoop">
+                                </div>
+                                <div class="form-group">
+                                    <label for="settings-google-client-id">ID Client Google OAuth 2.0 (Pour connecter de vrais comptes Google)</label>
+                                    <input type="text" id="settings-google-client-id" placeholder="616654931328-ud8ebaplaov9lf99muj1tv87g8st6fse.apps.googleusercontent.com">
+                                    <small class="form-help">Indiquez l'ID Client de votre projet Google Cloud Console. Par défaut, un ID générique de test est pré-configuré.</small>
+                                </div>
+                                 <div class="form-group" style="margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                                     <h4 style="margin-bottom: 12px; color: var(--text-color); font-weight: 600;">Réception des Transferts de Paiement</h4>
+                                     <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 15px;">Configurez le compte / numéro destinataire vers lequel l'argent récolté lors des commandes clients doit être transféré.</p>
+                                     <div class="form-row">
+                                         <div class="form-group">
+                                             <label for="settings-payout-number">Numéro de téléphone destinataire *</label>
+                                             <input type="text" id="settings-payout-number" placeholder="Ex: 77 123 45 67">
+                                         </div>
+                                         <div class="form-group">
+                                             <label for="settings-payout-carrier">Opérateur destinataire *</label>
+                                             <select id="settings-payout-carrier">
+                                                 <option value="wave">Wave Sénégal</option>
+                                                 <option value="orange">Orange Money</option>
+                                                 <option value="free">Free Money</option>
+                                             </select>
+                                         </div>
+                                     </div>
+                                 </div>
+                                  <!-- Section Promotions & Soldes du Site -->
+                                  <div class="form-group" style="margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                                      <h4 style="margin-bottom: 8px; color: var(--text-color); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                                          <i class="fa-solid fa-bolt text-accent"></i> Saison des Promotions & Soldes du Site
+                                      </h4>
+                                      <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 15px;">Activez ou désactivez la période de soldes sur l'ensemble de la boutique d'un simple clic.</p>
+                                      
+                                      <div style="background: rgba(212, 175, 55, 0.08); border: 1.5px solid var(--accent); border-radius: 8px; padding: 14px 16px; margin-bottom: 14px;">
+                                          <label style="display: flex; align-items: center; gap: 10px; font-weight: 700; cursor: pointer; font-size: 0.92rem;">
+                                              <input type="checkbox" id="settings-promo-enabled" style="width: 18px; height: 18px; accent-color: var(--accent);">
+                                              <span>Activer la période de Soldes / Promotions globales</span>
+                                          </label>
+                                          <p style="font-size: 0.78rem; color: var(--text-muted); margin: 6px 0 0 28px;">
+                                              Lorsque cette option est activée, tous les articles marqués en promotion affichent le badge <strong>PROMO</strong> et leur ancien prix barré.
+                                          </p>
+                                      </div>
+                                      <div class="form-group" style="margin-bottom: 0;">
+                                          <label for="settings-promo-banner-text">Bandeau d'annonce Promo en haut du site</label>
+                                          <input type="text" id="settings-promo-banner-text" placeholder="Ex: 🔥 VENTES PRIVÉES DIAW SHOOP : Jusqu'à -40% sur la sélection exclusive !">
+                                          <small class="form-help">Texte affiché en haut de la boutique pour informer vos clientes.</small>
+                                      </div>
+                                  </div>
+
+                                  <!-- Section Tarification & Zones de Livraison -->
+                                  <div class="form-group" style="margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                                      <h4 style="margin-bottom: 8px; color: var(--text-color); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                                          <i class="fa-solid fa-truck-moving text-accent"></i> Tarification & Zones de Livraison
+                                      </h4>
+                                      <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 15px;">Modifiez les frais de port par zone. Les montants sont automatiquement répercutés dans le panier et le tunnel de commande.</p>
+                                      
+                                      <div class="form-row">
+                                          <div class="form-group">
+                                              <label for="settings-shipping-dakar">Dakar Centre (FCFA) *</label>
+                                              <input type="number" id="settings-shipping-dakar" required min="0" step="100" value="1500" placeholder="1500">
+                                              <small class="form-help">Plateau, Fann, Mermoz...</small>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="settings-shipping-banlieue">Dakar Banlieue (FCFA) *</label>
+                                              <input type="number" id="settings-shipping-banlieue" required min="0" step="100" value="2500" placeholder="2500">
+                                              <small class="form-help">Pikine, Guédiawaye, Rufisque...</small>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="settings-shipping-regions">Régions (FCFA) *</label>
+                                              <input type="number" id="settings-shipping-regions" required min="0" step="100" value="4000" placeholder="4000">
+                                              <small class="form-help">Thiès, Mbour, Saint-Louis...</small>
+                                          </div>
+                                      </div>
+                                      
+                                      <div class="form-row" style="margin-top: 10px;">
+                                          <div class="form-group">
+                                              <label for="settings-shipping-free-threshold">Seuil Livraison Gratuite (FCFA)</label>
+                                              <input type="number" id="settings-shipping-free-threshold" min="0" step="1000" value="35000" placeholder="35000">
+                                              <small class="form-help">Offre les frais de livraison dès ce montant d'achat (0 pour désactiver).</small>
+                                          </div>
+                                          <div class="form-group" style="display: flex; flex-direction: column; justify-content: center; gap: 10px;">
+                                              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.86rem; font-weight: 500;">
+                                                  <input type="checkbox" id="settings-shipping-regions-enabled" checked style="width: 18px; height: 18px; accent-color: var(--accent);">
+                                                  <span>Autoriser livraison dans les Régions</span>
+                                              </label>
+                                              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.86rem; font-weight: 500;">
+                                                  <input type="checkbox" id="settings-shipping-pickup-enabled" checked style="width: 18px; height: 18px; accent-color: var(--accent);">
+                                                  <span>Proposer Retrait Showroom (Gratuit - 0 F)</span>
+                                              </label>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                 <button type="submit" class="btn btn-primary btn-block">Enregistrer la configuration</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Tab 5: Customer Support & Inquiries Management -->
+                    <div class="admin-tab-content" id="admin-support-tab">
+                        <div class="admin-table-container">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+                                <div>
+                                    <h3 style="font-size: 1.15rem; color: var(--primary); margin-bottom: 4px;"><i class="fa-solid fa-headset text-accent"></i> Messages & Réclamations Clients</h3>
+                                    <p class="text-muted" style="font-size: 0.85rem;">Consultez les demandes envoyées par vos clients et répondez directement par Email ou WhatsApp.</p>
+                                </div>
+                                <button type="button" class="btn btn-secondary btn-sm" id="btn-refresh-support-messages"><i class="fa-solid fa-rotate-right"></i> Actualiser</button>
+                            </div>
+                            
+                            <div id="admin-support-messages-list">
+                                <!-- Dynamically filled with support messages -->
+                                <div class="loading-spinner-wrapper">
+                                    <p class="text-muted">Aucune réclamation client pour le moment.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Shopping Cart Sidebar (Right-slide) -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-sidebar-header">
+            <h3>Mon Panier</h3>
+            <button class="close-cart-btn" id="close-cart-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-sidebar-body" id="cart-sidebar-body">
+            <!-- Dynamic Cart Items -->
+            <div class="empty-cart-message">
+                <i class="fa-solid fa-bag-shopping empty-icon"></i>
+                <p>Votre panier est vide.</p>
+                <a href="#shop-section" class="btn btn-primary" id="btn-cart-continue">Commencer vos achats</a>
+            </div>
+        </div>
+        <div class="cart-sidebar-footer" id="cart-sidebar-footer" style="display:none;">
+            <!-- Shipping Cost Calculator Area -->
+            <div class="cart-summary-line delivery-zone-wrapper">
+                <label for="cart-delivery-zone"><i class="fa-solid fa-location-dot"></i> Zone de livraison :</label>
+                <select id="cart-delivery-zone">
+                    <option value="dakar-centre">Dakar Centre (Plateau, Mermoz, etc.) - 1 500 F</option>
+                    <option value="dakar-banlieue">Banlieue (Pikine, Rufisque, etc.) - 2 500 F</option>
+                    <option value="regions">Régions du Sénégal - 4 000 F</option>
+                </select>
+            </div>
+            
+            <div class="cart-summary">
+                <div class="cart-summary-line">
+                    <span>Sous-total :</span>
+                    <span id="cart-subtotal">0 FCFA</span>
+                </div>
+                <div class="cart-summary-line">
+                    <span>Frais de livraison :</span>
+                    <span id="cart-shipping-cost">1 500 FCFA</span>
+                </div>
+                <div class="cart-summary-line total">
+                    <span>Total Général :</span>
+                    <span id="cart-total">0 FCFA</span>
+                </div>
+            </div>
+            <div class="cart-actions">
+                <button class="btn btn-primary btn-block" id="btn-checkout-trigger"><i class="fa-solid fa-credit-card"></i> Passer au paiement</button>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Product Detail Modal -->
+    <div class="modal" id="product-detail-modal">
+        <div class="modal-dialog">
+            <div class="modal-content product-detail-layout">
+                <button class="modal-close" id="btn-close-product-modal"><i class="fa-solid fa-xmark"></i></button>
+                <div class="product-detail-image-wrapper" id="modal-media-container">
+                    <img src="" alt="Product Image" id="modal-product-image">
+                </div>
+                <div class="product-detail-info">
+                    <span class="product-category-tag" id="modal-product-category">Catégorie</span>
+                    <h2 class="product-title" id="modal-product-title">Nom de l'article</h2>
+                    <div class="product-price" id="modal-product-price">0 FCFA</div>
+                    <p class="product-desc" id="modal-product-desc">Description de l'article.</p>
+                    
+                    <!-- Cosmetic Detailed Information Block (Rich details for skincare, beauty and perfumes) -->
+                    <div class="cosmetic-details-box" id="modal-cosmetic-details" style="display: none; background: #fffcf8; border: 1px solid rgba(220, 174, 150, 0.4); border-radius: 8px; padding: 14px; margin-bottom: 16px; font-size: 0.86rem; text-align: left;">
+                        <div style="font-weight: 700; color: var(--accent-dark); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; font-size: 0.9rem;">
+                            <i class="fa-solid fa-sparkles"></i> <span>Bienfaits & Conseils d'utilisation :</span>
+                        </div>
+                        <p id="modal-cosmetic-benefits" style="color: var(--text-main); margin-bottom: 8px; font-size: 0.85rem; line-height: 1.55;"></p>
+                        <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; gap: 12px; flex-wrap: wrap;">
+                            <span><i class="fa-solid fa-leaf text-success"></i> Ingrédients naturels & bio</span>
+                            <span><i class="fa-solid fa-circle-check text-success"></i> Sans effet secondaire</span>
+                        </div>
+                    </div>
+
+                    <!-- Size selector (Visible only for clothing) -->
+                    <div class="size-selection-area" id="modal-size-selection-wrapper">
+                        <div class="size-header">
+                            <span>Sélectionner une taille :</span>
+                        </div>
+                        <div class="size-options" id="size-options-container">
+                            <!-- XS, S, M, L, XL, 2XL buttons generated by JS -->
+                        </div>
+                        <span class="stock-status-text" id="modal-stock-status">En stock</span>
+                    </div>
+
+                    <div class="modal-actions-grid">
+                        <button class="btn btn-primary" id="modal-btn-add-cart"><i class="fa-solid fa-cart-plus"></i> Ajouter au panier</button>
+                        <!-- WhatsApp Direct Buy Button (Senegal E-commerce best practice) -->
+                        <button class="btn btn-success" id="modal-btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> Commander par WhatsApp</button>
+                    </div>
+
+                    <div class="trust-badges">
+                        <p><i class="fa-solid fa-truck-moving text-accent"></i> Livraison ultra-rapide au Sénégal</p>
+                    </div>
+
+                    <!-- Product Reviews Section -->
+                    <div class="product-reviews-section" style="margin-top: 30px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                        <h4 style="font-size: 1.1rem; margin-bottom: 15px; color: var(--primary); font-family: var(--font-header); display: flex; justify-content: space-between; align-items: center;">
+                            <span>Avis Clients (<span id="modal-reviews-count">0</span>)</span>
+                            <span style="color: #eab308; font-size: 0.95rem; font-weight: 700;" id="modal-reviews-avg">0.0 <i class="fa-solid fa-star"></i></span>
+                        </h4>
+                        
+                        <!-- List of reviews -->
+                        <div id="modal-reviews-list" style="max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; padding-right: 5px; text-align: left;">
+                            <!-- Dynamic reviews list -->
+                        </div>
+                        
+                        <!-- Review submission form -->
+                        <div class="add-review-box" style="background: #fafafa; border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 15px; margin-top: 15px;">
+                            <h5 style="margin-bottom: 10px; font-size: 0.85rem; color: var(--primary); font-weight: 700; text-align: left;">Laisser un avis sur ce produit</h5>
+                            <form id="add-review-form">
+                                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                    <span style="font-size: 0.75rem; font-weight: 600;">Note :</span>
+                                    <div class="star-rating-selector" id="star-rating-selector" style="display: flex; gap: 5px; font-size: 1.1rem; color: #ccc; cursor: pointer;">
+                                        <i class="fa-solid fa-star star-select active" data-rating="1"></i>
+                                        <i class="fa-solid fa-star star-select active" data-rating="2"></i>
+                                        <i class="fa-solid fa-star star-select active" data-rating="3"></i>
+                                        <i class="fa-solid fa-star star-select active" data-rating="4"></i>
+                                        <i class="fa-solid fa-star star-select active" data-rating="5"></i>
+                                    </div>
+                                    <input type="hidden" id="review-rating-value" value="5">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 8px;">
+                                    <input type="text" id="review-author-name" placeholder="Votre nom" required style="padding: 6px 10px; font-size: 0.8rem; height: 34px;">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 10px;">
+                                    <textarea id="review-text-content" placeholder="Partagez votre avis sur l'article acheté..." required rows="2" style="padding: 6px 10px; font-size: 0.8rem; width: 100%; border: 1px solid var(--border-color); border-radius: 4px; resize: vertical;"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-sm btn-block" style="padding: 8px; font-size: 0.8rem;">Envoyer mon avis</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Authentication Modal (Connexion / Inscription) -->
+    <div class="modal" id="auth-modal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content auth-container">
+                <button class="modal-close" id="btn-close-auth-modal"><i class="fa-solid fa-xmark"></i></button>
+                
+                <div class="auth-tabs">
+                    <button class="auth-tab-btn active" data-tab="login-tab">Se connecter</button>
+                    <button class="auth-tab-btn" data-tab="register-tab">Créer un compte</button>
+                </div>
+
+                <!-- Form 1: Login -->
+                <div class="auth-tab-content active" id="login-tab">
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Adresse e-mail</label>
+                            <input type="email" id="login-email" required placeholder="votre.nom@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Mot de passe</label>
+                            <div class="password-input-wrapper">
+                                <input type="password" id="login-password" required placeholder="••••••••">
+                                <button type="button" class="btn-toggle-password"><i class="fa-regular fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+                    </form>
+
+                </div>
+
+                <!-- Form 2: Register -->
+                <div class="auth-tab-content" id="register-tab">
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="register-name">Nom complet</label>
+                            <input type="text" id="register-name" required placeholder="Ex: Fatou Diop">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Adresse e-mail</label>
+                            <input type="email" id="register-email" required placeholder="exemple@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Mot de passe (Min. 6 caractères)</label>
+                            <div class="password-input-wrapper">
+                                <input type="password" id="register-password" required minlength="6" placeholder="Créez un mot de passe">
+                                <button type="button" class="btn-toggle-password"><i class="fa-regular fa-eye"></i></button>
+                            </div>
+                        </div>
+                        <!-- Anti-bot honeypot invisible field -->
+                        <div style="display:none !important; position: absolute; left: -9999px;" aria-hidden="true">
+                            <input type="text" id="register-hp" name="hp_security_check" tabindex="-1" autocomplete="off">
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="register-agree" required checked>
+                            <label for="register-agree">J'accepte les conditions de vente et politique de confidentialité.</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="btn-submit-register">Créer mon compte & Commencer</button>
+                    </form>
+                </div>
+
+                <div class="auth-divider" id="auth-divider-section">
+                    <span>OU CONTINUER AVEC</span>
+                </div>
+
+                <!-- Bouton officiel Google Sign-In réel -->
+                <div id="google-signin-btn-container" style="margin-top: 15px; display: flex; justify-content: center; width: 100%; min-height: 44px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal (Responsive tunnel de paiement sénégalais) -->
+    <div class="modal" id="checkout-modal">
+        <div class="modal-dialog">
+            <div class="modal-content checkout-container">
+                <button class="modal-close" id="btn-close-checkout-modal"><i class="fa-solid fa-xmark"></i></button>
+                
+                <h2>Finaliser la commande</h2>
+                
+                <!-- Checkout Steps Indicator -->
+                <div class="checkout-steps">
+                    <div class="step active" id="step-ind-1"><span>1</span> Informations</div>
+                    <div class="step" id="step-ind-2"><span>2</span> Paiement</div>
+                    <div class="step" id="step-ind-3"><span>3</span> Simulation</div>
+                    <div class="step" id="step-ind-4"><span>4</span> Reçu</div>
+                </div>
+
+                <!-- STEP 1: Delivery Information Form -->
+                <div class="checkout-step-content active" id="checkout-step-1">
+                    <form id="shipping-info-form">
+                        <h3>Adresse et coordonnées de livraison</h3>
+                        <div class="form-group">
+                            <label for="checkout-name">Nom complet du destinataire *</label>
+                            <input type="text" id="checkout-name" required placeholder="Ex: Aminata Sarr">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="checkout-phone">Numéro de téléphone sénégalais *</label>
+                                <input type="tel" id="checkout-phone" required placeholder="Ex: 77 123 45 67">
+                                <small class="form-help">Format : 9 chiffres (77, 78, 76, 75, 70)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="checkout-email">E-mail de contact (Optionnel)</label>
+                                <input type="email" id="checkout-email" placeholder="ex: aminata@gmail.com (optionnel)">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-address">Adresse exacte de livraison *</label>
+                            <input type="text" id="checkout-address" required placeholder="Ex: Villa n°12, Liberté 6 Extension, Dakar">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkout-notes">Notes de livraison (Optionnel)</label>
+                            <textarea id="checkout-notes" rows="2" placeholder="Ex: Près de la grande mosquée, appeler avant d'arriver..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Continuer vers le paiement</button>
+                    </form>
+                </div>
+
+                <!-- STEP 2: Payment Method Selection -->
+                <div class="checkout-step-content" id="checkout-step-2">
+                    <h3>Sélectionnez votre moyen de paiement</h3>
+                    <p class="text-muted">Systèmes mobiles sécurisés du Sénégal connectés</p>
+                    
+                    <div class="payment-methods-grid">
+                        <!-- Cash on Delivery Card (Active & Recommandé) -->
+                        <div class="payment-method-card active" data-method="cash" style="border: 2px solid var(--accent); background: #fffcf7;">
+                            <div class="method-badge"><i class="fa-solid fa-circle-check"></i></div>
+                            <div class="payment-logo-wrapper cash-color">
+                                <i class="fa-solid fa-hand-holding-dollar"></i>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                <h4 style="margin: 0;">Paiement à la livraison</h4>
+                                <span style="background: #e6f4ea; color: #137333; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 12px;">Recommandé</span>
+                            </div>
+                            <p class="method-desc">Payez à notre livreur à la réception de votre colis (en espèces ou par Wave/OM sur place). 100% sécurisé et sans avance.</p>
+                        </div>
+
+                        <!-- Wave Card -->
+                        <div class="payment-method-card" data-method="wave" style="opacity: 0.85;">
+                            <div class="method-badge"><i class="fa-solid fa-circle-check"></i></div>
+                            <div class="payment-logo-wrapper wave-color">
+                                <span class="wave-text">wave</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                <h4 style="margin: 0;">Wave Direct</h4>
+                                <span style="background: #f1f5f9; color: #64748b; font-size: 0.68rem; font-weight: 600; padding: 2px 6px; border-radius: 10px;">Bientôt disponible</span>
+                            </div>
+                            <p class="method-desc">Paiement instantané en ligne par QR Code ou push mobile.</p>
+                        </div>
+
+                        <!-- Orange Money Card -->
+                        <div class="payment-method-card" data-method="om" style="opacity: 0.85;">
+                            <div class="method-badge"><i class="fa-solid fa-circle-check"></i></div>
+                            <div class="payment-logo-wrapper om-color">
+                                <span class="om-text">orange money</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                                <h4 style="margin: 0;">Orange Money Direct</h4>
+                                <span style="background: #f1f5f9; color: #64748b; font-size: 0.68rem; font-weight: 600; padding: 2px 6px; border-radius: 10px;">Bientôt disponible</span>
+                            </div>
+                            <p class="method-desc">Validation par code USSD ou code d'authentification OTP.</p>
+                        </div>
+                    </div>
+
+                    <div class="payment-amount-summary">
+                        <p>Montant total à régler : <strong id="checkout-amount-summary">0 FCFA</strong> (Frais de livraison inclus)</p>
+                    </div>
+
+                    <div class="checkout-nav-buttons">
+                        <button class="btn btn-secondary" id="btn-back-to-step-1">Retour</button>
+                        <button class="btn btn-primary" id="btn-proceed-to-sim">Procéder à la transaction</button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Payment Gateway Simulation (Wave / OM / Free Money wizards) -->
+                <div class="checkout-step-content" id="checkout-step-3">
+                    
+                    <!-- UNIFIED ONLINE PAYMENT PORTAL (CinetPay integration) -->
+                    <div class="payment-wizard" id="wizard-online-payment" style="display:none; text-align: center; padding: 20px 0;">
+                        <h3 style="margin-bottom: 10px;">Paiement Mobile Sénégal</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px;">
+                            Vous allez être redirigé vers la passerelle sécurisée de <strong>CinetPay</strong> pour finaliser votre paiement avec 
+                            <strong style="color: var(--accent-dark);">Orange Money</strong>, 
+                            <strong style="color: var(--accent-dark);">Wave</strong>, ou 
+                            <strong style="color: var(--accent-dark);">Free Money</strong>.
+                        </p>
+                        
+                        <div class="checkout-icons-row" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; align-items: center; flex-wrap: wrap;">
+                            <div style="background: #ff7900; color: #fff; font-weight: 700; font-size: 0.95rem; padding: 10px 18px; border-radius: 8px; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 8px; letter-spacing: 0.5px;">
+                                <i class="fa-solid fa-mobile-screen-button"></i> Orange Money
+                            </div>
+                            <div style="background: #1dc3f1; color: #002244; font-weight: 800; font-size: 0.95rem; padding: 10px 18px; border-radius: 8px; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 8px; letter-spacing: 0.5px;">
+                                <i class="fa-solid fa-water"></i> Wave
+                            </div>
+                            <div style="background: #cd1619; color: #fff; font-weight: 700; font-size: 0.95rem; padding: 10px 18px; border-radius: 8px; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 8px; letter-spacing: 0.5px;">
+                                <i class="fa-solid fa-bolt"></i> Free Money
+                            </div>
+                        </div>
+                        
+                        <div class="payment-details-box" style="background: #fafafa; border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); padding: 15px 20px; max-width: 400px; margin: 0 auto 30px auto; text-align: left;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.9rem;">
+                                <span>Montant de la commande :</span>
+                                <span style="font-weight: 700;" id="online-payment-amount">0 FCFA</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
+                                <span>Méthode choisie :</span>
+                                <span style="font-weight: 700; color: var(--accent-dark); text-transform: uppercase;" id="online-payment-method">WAVE</span>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-block" id="btn-trigger-online-payment" style="max-width: 400px; margin: 0 auto; padding: 14px;">
+                            <i class="fa-solid fa-credit-card"></i> Payer maintenant (<span id="online-payment-btn-amount">0 F</span>)
+                        </button>
+                    </div>
+
+                    <!-- PULLING LOADER FOR ONLINE PAYMENT VERIFICATION -->
+                    <div class="payment-wizard" id="wizard-online-pending" style="display:none; text-align: center; padding: 30px 0;">
+                        <div class="spinner accent-spinner" style="margin: 0 auto 20px auto; width: 45px; height: 45px; border-width: 4px;"></div>
+                        <h3 style="margin-bottom: 10px;" id="online-pending-title">Attente du paiement...</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px; max-width: 450px; margin-left: auto; margin-right: auto;" id="online-pending-desc">
+                            Veuillez finaliser le paiement sur l'onglet de paiement CinetPay ouvert.<br>
+                            Nous vérifions en temps réel la validation sur votre téléphone.
+                        </p>
+                        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 300px; margin: 0 auto;">
+                            <button class="btn btn-secondary btn-sm" id="btn-cancel-online-polling" style="padding: 10px;">Annuler la transaction</button>
+                        </div>
+                    </div>
+
+                    <!-- CASH ON DELIVERY CONFIRMATION -->
+                    <div class="payment-wizard" id="wizard-cash" style="display:none;">
+                        <div class="cash-confirmation-box">
+                            <i class="fa-solid fa-circle-question question-icon"></i>
+                            <h3>Paiement à la livraison</h3>
+                            <p>Vous avez choisi de payer en espèces directement à notre livreur. Nos équipes vont vous contacter sur votre numéro pour confirmer le créneau horaire avant le passage de l'expédition.</p>
+                            <p>Montant à préparer : <strong id="cash-amount-confirm">0 FCFA</strong></p>
+                            <button class="btn btn-primary" id="btn-cash-confirm-order">Valider ma commande</button>
+                        </div>
+                    </div>
+
+                    <div class="transaction-loader-wrapper" id="transaction-loader" style="display:none;">
+                        <div class="spinner accent-spinner"></div>
+                        <h3>Sécurisation de la transaction en cours...</h3>
+                        <p class="text-muted">Veuillez ne pas fermer cette fenêtre.</p>
+                    </div>
+
+                    <div class="checkout-nav-buttons" id="sim-nav-buttons">
+                        <button class="btn btn-secondary" id="btn-back-to-step-2">Retour au choix</button>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Invoice Receipt Screen -->
+                <div class="checkout-step-content" id="checkout-step-4">
+                    <div class="invoice-container">
+                        <div class="invoice-header-stamp">
+                            <i class="fa-solid fa-circle-check success-icon"></i>
+                            <h2>Merci pour votre commande !</h2>
+                            <p>Votre paiement a été traité avec succès et sécurisé.</p>
+                        </div>
+
+                        <div class="invoice-receipt" id="invoice-receipt-details">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+
+                        <!-- Guest Follow-up Box: Suggest account creation / Google login smoothly -->
+                        <div id="guest-signup-prompt" style="display: none; margin: 20px 0; background: linear-gradient(135deg, rgba(220, 174, 150, 0.12), rgba(255, 255, 255, 0.9)); border: 1.5px dashed var(--accent); border-radius: 12px; padding: 18px 20px; text-align: center;">
+                            <div style="font-size: 1.4rem; color: var(--accent-dark); margin-bottom: 6px;"><i class="fa-solid fa-gift"></i></div>
+                            <h4 style="font-size: 1rem; color: var(--primary); font-family: var(--font-header); margin-bottom: 6px;">Facilitez vos futurs achats !</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">Vous avez commandé en mode invité. Souhaitez-vous créer un compte ou vous connecter avec Google pour suivre vos colis et retrouver votre historique en 1 clic ?</p>
+                            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                                <button type="button" class="btn btn-primary btn-sm" id="btn-guest-create-account" style="padding: 8px 16px; font-size: 0.85rem;"><i class="fa-solid fa-user-plus"></i> Créer un compte / Connexion</button>
+                                <button type="button" class="btn btn-secondary btn-sm" id="btn-guest-skip-account" style="padding: 8px 14px; font-size: 0.85rem;">Plus tard</button>
+                            </div>
+                        </div>
+
+                        <div class="invoice-actions">
+                            <button class="btn btn-primary" id="btn-download-pdf"><i class="fa-solid fa-download"></i> Enregistrer le reçu</button>
+                            <button class="btn btn-secondary" id="btn-close-checkout-complete">Retourner à la boutique</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Orders Modal (Mes commandes clients) -->
+    <div class="modal" id="my-orders-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button class="modal-close" id="btn-close-my-orders"><i class="fa-solid fa-xmark"></i></button>
+                <h2>Historique de vos commandes</h2>
+                <p class="text-muted" id="my-orders-subtitle">Suivi en temps réel de vos achats</p>
+                
+                <div class="my-orders-body" id="my-orders-list">
+                    <!-- Dynamic orders listed here -->
+                </div>
+
+                <div class="form-actions" style="margin-top: 20px;">
+                    <button class="btn btn-secondary" id="btn-close-my-orders-btn">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Invoice & Delivery Slip Modal -->
+    <div class="modal" id="order-invoice-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button class="modal-close" id="btn-close-invoice-modal"><i class="fa-solid fa-xmark"></i></button>
+                <div class="invoice-container printable-area" style="padding: 10px 0;">
+                    <div class="invoice-header-stamp" style="text-align: center; margin-bottom: 20px;">
+                        <h2 style="font-size: 1.3rem; margin-bottom: 4px; color: var(--primary);">DIAW SHOOP</h2>
+                        <p class="text-muted" style="font-size: 0.85rem;">Bordereau & Facture de Livraison</p>
+                    </div>
+                    <div class="invoice-receipt" id="admin-invoice-modal-details">
+                        <!-- Populated dynamically -->
+                    </div>
+                    <div class="invoice-actions" style="margin-top: 20px; display: flex; gap: 10px; justify-content: flex-end;">
+                        <button type="button" class="btn btn-primary" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimer le reçu</button>
+                        <button type="button" class="btn btn-secondary" id="btn-close-invoice-modal-btn">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Universal Deletion Confirmation Modal -->
+    <div class="modal" id="admin-confirm-modal" style="z-index: 2500;">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="padding: 28px 24px; text-align: center;">
+                <button class="modal-close" id="btn-close-admin-confirm"><i class="fa-solid fa-xmark"></i></button>
+                <div style="width: 58px; height: 58px; background: #fee2e2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; color: #ef4444; font-size: 1.6rem; border: 2px solid #fecaca;">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h3 id="admin-confirm-title" style="margin-bottom: 8px; font-size: 1.2rem; font-weight: 700; color: var(--text-color);">Confirmer la suppression</h3>
+                <p id="admin-confirm-message" style="margin-bottom: 22px; font-size: 0.92rem; color: var(--text-muted); line-height: 1.45;">Êtes-vous sûr de vouloir supprimer définitivement cet élément ?</p>
+                <div style="display: flex; gap: 12px; justify-content: center;">
+                    <button type="button" class="btn btn-secondary" id="admin-confirm-btn-cancel" style="flex: 1; padding: 11px;">Annuler</button>
+                    <button type="button" class="btn" id="admin-confirm-btn-danger" style="flex: 1; padding: 11px; background: #ef4444; color: #fff; font-weight: 600; border: none; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);">
+                        <i class="fa-solid fa-trash-can"></i> Supprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Floating Notifications (Toast Alert) -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Footer Section -->
+    <footer class="main-footer" id="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand-side">
+                    <a href="#client-shop-view" class="brand-logo" style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                        <span id="logo-footer-text" style="font-family: var(--font-header); font-weight: 800; font-size: 1.4rem; letter-spacing: 0.05em;"><span style="color: var(--accent);">DIAW</span> SHOOP</span>
+                    </a>
+                    <p class="footer-tagline">Votre marque sénégalaise d'élégance : robes raffinées, abayas modernes et cosmétiques bio de haute performance.</p>
+                    <div class="social-links">
+                        <a href="#" id="footer-link-instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" id="footer-link-facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" id="footer-link-tiktok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" id="footer-link-whatsapp-icon" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links-side">
+                    <div>
+                        <h4>Assistance</h4>
+                        <ul>
+                            <li><a href="#">FAQ & Tarifs</a></li>
+                            <li><a href="#">Conditions de Vente</a></li>
+                            <li><a href="#">Aide & Service Client</a></li>
+                            <li><a href="#contact-section">Contact Support & Réclamations</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Contact & Horaires</h4>
+                        <ul>
+                            <li><i class="fa-solid fa-phone"></i> Tél : <span id="footer-phone-display">+221 70 547 60 61</span></li>
+                            <li><i class="fa-solid fa-location-dot"></i> <span id="footer-address-display">Liberté 6 Extension, Dakar, Sénégal</span></li>
+                            <li><i class="fa-solid fa-clock"></i> <span id="footer-hours-display">Lun - Ven : 10h - 22h / Sam : 10h - 18h</span></li>
+                            <li><i class="fa-solid fa-envelope"></i> <span class="footer-email-wrapper">Email : <span id="footer-email-display">mamadoudiaw1105@gmail.com</span></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p id="footer-copyright">&copy; 2026 DIAW SHOOP. Tous droits réservés. Prêt-à-porter & Cosmétiques féminins au Sénégal. Sécurisé par Wave & Orange Money.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logo Portal Overlay Menu (3-Dots Navigation Hub) -->
+    <div class="portal-overlay" id="logo-portal-overlay" style="display: none;">
+        <div class="portal-content">
+            <button class="portal-close" id="btn-close-portal" aria-label="Fermer le menu"><i class="fa-solid fa-xmark"></i></button>
+            <div class="portal-logo-wrapper">
+                <h2 id="logo-portal-text" style="font-family: var(--font-header); font-weight: 800; font-size: 1.8rem; letter-spacing: 0.05em;"><span style="color: var(--accent);">DIAW</span> SHOOP</h2>
+                <p>Votre élégance au quotidien : Prêt-à-porter & Soins Beauté</p>
+            </div>
+            <div class="portal-buttons-grid">
+                <button class="portal-btn" id="portal-btn-home">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Accueil / Haut de page</span>
+                </button>
+                <button class="portal-btn" id="portal-btn-shop">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>Boutique & Catalogue</span>
+                </button>
+                <button class="portal-btn" id="portal-btn-contact">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>Contact & Horaires</span>
+                </button>
+                <button class="portal-btn" id="portal-btn-orders">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>Mes Commandes</span>
+                </button>
+                <button class="portal-btn" id="portal-btn-account">
+                    <i class="fa-regular fa-user"></i>
+                    <span id="portal-account-text">Mon Compte / Connexion</span>
+                </button>
+                <button class="portal-btn portal-btn-admin admin-only-link" id="portal-btn-admin" style="display: none;">
+                    <i class="fa-solid fa-gauge text-accent"></i>
+                    <span>Espace Administrateur</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Local Application Javascript -->
+    <script src="app.js?v=4"></script>
+</body>
+</html>
