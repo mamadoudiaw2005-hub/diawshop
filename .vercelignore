@@ -1,0 +1,31 @@
+# ─────────────────────────────────────────────────────────────────
+# DIAW SHOOP — Vercel Ignore
+# Fichiers à ne JAMAIS inclure ni exposer dans le déploiement Vercel
+# ─────────────────────────────────────────────────────────────────
+
+# Variables d'environnement et secrets
+.env
+.env.*
+.env.example
+
+# Base de données et journaux de commandes locales
+server_orders.json
+*.log
+logs/
+
+# Scripts serveur Python (déployés séparément ou inutilisés sur Vercel statique)
+server.py
+requirements.txt
+__pycache__/
+*.pyc
+
+# Scripts de migration SQL et documentation de sécurité
+supabase_security_setup.sql
+diawshoop_supabase.sql
+scratch/
+
+# Git et configuration IDE
+.git
+.gitignore
+.vscode
+.idea
