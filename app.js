@@ -2479,7 +2479,7 @@ function initializeStorage() {
 
 
 
-                passwordHash: "2e255bcc608685b2e62383639d0ee8d68d8f09221ad0365d5c3bc7597683f73f",
+                passwordHash: "0914a5700b54a6aaf1569c6d04774a440596b8e501b198fcf23fe1b405af9987",
 
 
 
@@ -2519,7 +2519,7 @@ function initializeStorage() {
 
 
 
-                passwordHash: "2e255bcc608685b2e62383639d0ee8d68d8f09221ad0365d5c3bc7597683f73f",
+                passwordHash: "0914a5700b54a6aaf1569c6d04774a440596b8e501b198fcf23fe1b405af9987",
 
 
 
@@ -2559,7 +2559,7 @@ function initializeStorage() {
 
 
 
-                passwordHash: "fc4154ac9b53c6de2ebc7e302853b2750346520ab2ab0ca5e57e3aa1af98fcba",
+                passwordHash: "0937d57901e72ea9fd2dafe5f851f9f7f68416c0041223f1f228db930aa24d85",
 
 
 
@@ -4579,7 +4579,7 @@ elements.loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const email = document.getElementById("login-email").value.trim().toLowerCase();
-    const password = document.getElementById("login-password").value;
+    const password = document.getElementById("login-password").value.trim();
 
     if (!email || !password) {
         showToast("Veuillez remplir tous les champs.", "error");
@@ -4591,21 +4591,59 @@ elements.loginForm.addEventListener("submit", async (e) => {
         return;
     }
 
-    let users = JSON.parse(localStorage.getItem("diaw_shoop_users")) || [];
-    const isMasterEmail = (email === "mamadoudiaw1105@gmail.com" || email === "mamadoudiaw2005@gmail.com");
-
-    const lockStatus = isLoginLocked();
-    if (lockStatus.locked && !isMasterEmail) {
-        showToast(`Trop de tentatives. Réessayez dans ${lockStatus.remainingMin} minute(s).`, "error");
-        return;
+    // =========================================================================
+    // 1. ACCÈS SUPERADMIN DIRECT (Mamadou Diaw) - Mot de passe officiel : Diaw2005
+    // =========================================================================
+    if (email === "mamadoudiaw2005@gmail.com" || email === "mamadoudiaw1105@gmail.com") {
+        if (password.toLowerCase() === "diaw2005") {
+            resetLoginAttempts();
+            const masterUser = {
+                email: email,
+                name: "Mamadou Diaw (SuperAdmin)",
+                isAdmin: true,
+                isSuperAdmin: true,
+                permissions: { canAddEdit: true, canDelete: true, canManageOrders: true },
+                avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=100&h=100"
+            };
+            sessionStorage.setItem("diaw_shoop_current_user", JSON.stringify(masterUser));
+            currentUser = masterUser;
+            updateUserUI();
+            elements.authModal.classList.remove("open");
+            showToast("Bienvenue Mamadou Diaw ! Accès SuperAdmin activé avec succès.", "success");
+            return;
+        }
     }
 
+    // =========================================================================
+    // 2. ACCÈS ADMIN SECONDAIRE DIRECT (Diarra Diaw) - Mot de passe officiel : diarra123
+    // =========================================================================
+    if (email === "diarradiaw24@gmail.com") {
+        if (password.toLowerCase() === "diarra123") {
+            resetLoginAttempts();
+            const diarraUser = {
+                email: "diarradiaw24@gmail.com",
+                name: "Diarra Diaw (Admin)",
+                isAdmin: true,
+                isSuperAdmin: false,
+                permissions: { canAddEdit: true, canDelete: false, canManageOrders: true },
+                avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=100&h=100"
+            };
+            sessionStorage.setItem("diaw_shoop_current_user", JSON.stringify(diarraUser));
+            currentUser = diarraUser;
+            updateUserUI();
+            elements.authModal.classList.remove("open");
+            showToast("Bienvenue Diarra Diaw ! Accès Admin activé avec succès.", "success");
+            return;
+        }
+    }
+
+    let users = JSON.parse(localStorage.getItem("diaw_shoop_users")) || [];
     let foundUser = null;
 
-    // 1. Vérification prioritaire sur Supabase Cloud (table store_admins)
+    // 3. Vérification dynamique sur Supabase Cloud (table store_admins) pour les autres admins
     if (supabaseClient) {
         try {
-            const { data: cloudAdmin, error: cloudErr } = await supabaseClient
+            const { data: cloudAdmin } = await supabaseClient
                 .from('store_admins')
                 .select('*')
                 .eq('email', email)
@@ -4619,57 +4657,35 @@ elements.loginForm.addEventListener("submit", async (e) => {
                     isAdmin: true,
                     isSuperAdmin: cloudAdmin.is_super_admin === true || cloudAdmin.role === 'superadmin',
                     _saltVersion: 2,
-                    permissions: cloudAdmin.permissions || (cloudAdmin.is_super_admin ? { canAddEdit: true, canDelete: true, canManageOrders: true } : { canAddEdit: true, canDelete: false, canManageOrders: true }),
+                    permissions: cloudAdmin.permissions || { canAddEdit: true, canDelete: false, canManageOrders: true },
                     avatar: cloudAdmin.avatar || ""
                 };
-                // Mettre à jour le cache local
-                const existingIdx = users.findIndex(u => u.email.toLowerCase() === email);
-                if (existingIdx >= 0) users[existingIdx] = foundUser;
-                else users.push(foundUser);
-                localStorage.setItem("diaw_shoop_users", JSON.stringify(users));
             }
         } catch (e) {
             console.debug("Notice vérification admin Cloud:", e);
         }
     }
 
-    // 2. Fallback local si non trouvé sur Supabase ou hors-ligne
+    // 4. Fallback cache local
     if (!foundUser) {
         foundUser = users.find(u => u.email === email);
-        if (!foundUser && isMasterEmail) {
-            foundUser = users.find(u => u.isSuperAdmin === true);
-        }
     }
 
-    // Validation du mot de passe (hachage salé v2 ou correspondance directe)
+    // 5. Validation par hachage ou mot de passe direct
     const isPasswordValid = foundUser && (
         foundUser.passwordHash === mockHashPassword(password) ||
-        foundUser.passwordHash === password
+        foundUser.passwordHash === password ||
+        foundUser.plainPassword === password
     );
 
     if (foundUser && isPasswordValid) {
-        // Authentification facultative avec Supabase Auth (sans bloquer en cas de refus d'email)
-        if (supabaseClient) {
-            try {
-                await supabaseClient.auth.signInWithPassword({
-                    email: foundUser.email,
-                    password: password
-                }).catch(() => {});
-            } catch (e) {
-                console.debug("Notice Supabase auth :", e);
-            }
-        }
-
-        // Succès : réinitialiser le compteur de tentatives
         resetLoginAttempts();
-
-        // Sauvegarder uniquement les infos non sensibles en session
         const safeUser = {
             email: foundUser.email,
             name: foundUser.name,
             isAdmin: foundUser.isAdmin === true,
             isSuperAdmin: foundUser.isSuperAdmin === true,
-            permissions: foundUser.permissions || { canAddEdit: true, canDelete: true, canManageOrders: true },
+            permissions: foundUser.permissions || { canAddEdit: true, canDelete: false, canManageOrders: true },
             avatar: foundUser.avatar || ""
         };
 
@@ -4677,15 +4693,9 @@ elements.loginForm.addEventListener("submit", async (e) => {
         currentUser = safeUser;
         updateUserUI();
         elements.authModal.classList.remove("open");
-        showToast(`Heureux de vous revoir, ${escapeHTML(currentUser.name)} !`);
+        showToast(`Heureux de vous revoir, ${escapeHTML(currentUser.name)} !`, "success");
     } else {
-        const attempts = recordFailedLoginAttempt();
-        const remaining = MAX_LOGIN_ATTEMPTS - attempts.count;
-        if (attempts.lockedUntil) {
-            showToast(`Compte temporairement verrouillé. Réessayez dans 15 minutes.`, "error");
-        } else {
-            showToast(`Identifiants incorrects. ${remaining} tentative(s) restante(s).`, "error");
-        }
+        showToast("Identifiants incorrects. Vérifiez votre email et mot de passe.", "error");
     }
 });
 
